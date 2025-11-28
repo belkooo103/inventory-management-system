@@ -4,13 +4,48 @@
 
 <html>
 <head runat="server">
-    <title></title>
+    <title>Popis inventara</title>
+    <link rel="stylesheet" href="styles/styles.css" />s
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-        
+        <div class="container">
+            <div class="side-container">
+                   <div class="side-logo">
+
+                   </div>
+                <div class="side-items">
+                    <div class="item">
+                       Dashboard
+                    </div>
+                    <div class="item">
+                        Products                        
+                    </div>
+                    <div class="item">
+                        Categories
+                    </div>
+                    <div class="item">
+                        Suppliers
+                    </div>
+                    <div class="item">
+                       Orders
+                    </div>
+                    <div class="item">
+                        Contact
+                    </div>
+                </div>
+            </div>
+            <div class="hero-container">
+                <div class="header-container">
+
+                </div>
+                <div class="hero">
+
+                </div>
+            </div>
+        </div>
     </form>
 </body>
 </html>
