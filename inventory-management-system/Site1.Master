@@ -20,28 +20,36 @@
                    
                 <div class="side-items">
                     <div class="item">
+                        <img runat="server" src="img/dashboard.png" />
                         <asp:HyperLink ID="HyperLinkDashboard" runat="server" NavigateUrl="~/Pages/Dashboard.aspx">Dashboard</asp:HyperLink>
                     </div>
                     <div class="item">
+                        <img runat="server" src="img/products.png" />
                        <asp:HyperLink ID="HyperLinkProducts" runat="server">Prodcuts</asp:HyperLink>                  
                     </div>
                     <div class="item">
+                        <img runat="server" src="img/category.png" />
                         <asp:HyperLink ID="HyperLinkCategories" runat="server">Categories</asp:HyperLink>
                     </div>
                     <div class="item">
+                        <img runat="server" src="img/suppliers.png"/>
                         <asp:HyperLink ID="HyperLinkSuppliers" runat="server">Suppliers</asp:HyperLink>
                     </div>
                     <div class="item">
+                        <img runat="server" src="img/orders.png" />
                        <asp:HyperLink ID="HyperLinkOrders" runat="server">Orders</asp:HyperLink>
                     </div>
                     <div class="item">
+                        <img runat="server" src="img/contact.png">
                        <asp:HyperLink ID="HyperLinkContact" runat="server">Contact</asp:HyperLink>
                     </div>
+                   
                 </div>
             </div>
             <div class="hero-container">
                 <div class="header-container">
-
+                    <asp:TextBox ID="TextBoxSearch" runat="server" Placeholder="Search..."></asp:TextBox>
+                    <asp:Button ID="ButtonSearch" runat="server" Text="Search" />
                 </div>
                 <div class="hero">
 

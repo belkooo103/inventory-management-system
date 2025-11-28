@@ -68,7 +68,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="img\contact.png" />
+    <Content Include="img\dashboard.png" />
+    <Content Include="img\products.png" />
+    <Content Include="img\category.png" />
+    <Content Include="img\orders.png" />
     <Content Include="img\logo.png" />
+    <Content Include="img\suppliers.png" />
     <Content Include="Pages\Dashboard.aspx" />
     <Content Include="styles\styles.css" />
     <Content Include="Web.config" />
