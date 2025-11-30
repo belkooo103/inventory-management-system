@@ -17,11 +17,12 @@ a {
 
 body {
     height: 1000px;
-    width: 1000px;
+    width: 90vw;
     background-color: rgb(192,192,192);
     display: flex;
     flex-direction: row;
     gap: 0px;
+    overflow: hidden;
 }
 .container{
    height: 1000px;
@@ -132,5 +133,5 @@ body {
 .hero{
     height: 850px;
     width: 100%;
-    border-radius: 20px 0px 0px 0px;
+
 }
