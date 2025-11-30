@@ -1,0 +1,26 @@
+﻿/*----------------- DEFAULT ASPX CSS -------------------*/
+.products-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    margin: 20px 30px 20px 20px;
+    border: 1px solid black;
+    align-content: center;
+    justify-content: center;
+}
+
+.hero-main-info-container {
+    width: 90%;
+    height: 130px;
+    background-color: rgb(232,232,232);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.num-of-products, .sum-of-values, .available-products, .not-available-products {
+    height: 80%;
+    width: 350px;
+    border: 1px solid black;
+}

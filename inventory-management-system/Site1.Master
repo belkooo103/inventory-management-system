@@ -6,6 +6,7 @@
 <head runat="server">
     <title>Popis inventara</title>
     <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/dashboradStyle.css" />s
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
