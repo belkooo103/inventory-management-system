@@ -7,6 +7,7 @@
     <title>Popis inventara</title>
     <link rel="stylesheet" href="styles/styles.css" />
     <link rel="stylesheet" href="styles/dashboradStyle.css" />
+    <link rel="stylesheet" href="styles/categoriesStyle.css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -23,10 +24,6 @@
                     <div class="item">
                         <img runat="server" src="img/dashboard.png" />
                         <asp:HyperLink ID="HyperLinkDashboard" runat="server" NavigateUrl="~/Pages/Dashboard.aspx">Dashboard</asp:HyperLink>
-                    </div>
-                    <div class="item">
-                        <img runat="server" src="img/products.png" />
-                       <asp:HyperLink ID="HyperLinkProducts" runat="server" NavigateUrl="~/Pages/Products.aspx">Prodcuts</asp:HyperLink>                  
                     </div>
                     <div class="item">
                         <img runat="server" src="img/category.png" />

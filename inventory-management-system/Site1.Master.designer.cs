@@ -42,15 +42,6 @@ namespace inventory_management_system
         protected global::System.Web.UI.WebControls.HyperLink HyperLinkDashboard;
 
         /// <summary>
-        /// HyperLinkProducts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkProducts;
-
-        /// <summary>
         /// HyperLinkCategories control.
         /// </summary>
         /// <remarks>
