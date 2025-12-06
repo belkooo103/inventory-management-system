@@ -83,7 +83,6 @@
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Pages\Dashboard.aspx" />
     <Content Include="Pages\Orders.aspx" />
-    <Content Include="Pages\Products.aspx" />
     <Content Include="Pages\Suppliers.aspx" />
     <Content Include="styles\categoriesStyle.css" />
     <Content Include="styles\dashboradStyle.css" />
@@ -121,13 +120,6 @@
     </Compile>
     <Compile Include="Pages\Orders.aspx.designer.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Products.aspx.cs">
-      <DependentUpon>Products.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Products.aspx.designer.cs">
-      <DependentUpon>Products.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Suppliers.aspx.cs">
       <DependentUpon>Suppliers.aspx</DependentUpon>
