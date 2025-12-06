@@ -96,6 +96,15 @@ namespace inventory_management_system
         protected global::System.Web.UI.WebControls.Button ButtonSearch;
 
         /// <summary>
+        /// ProfilePictureContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink ProfilePictureContainer;
+
+        /// <summary>
         /// mainContent control.
         /// </summary>
         /// <remarks>

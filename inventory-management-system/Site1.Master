@@ -48,7 +48,15 @@
                 <div class="header-container">
                     <asp:TextBox ID="TextBoxSearch" runat="server" Placeholder="Search..."></asp:TextBox>
                     <asp:Button ID="ButtonSearch" runat="server" Text="Search" />
-                </div>
+               <asp:HyperLink ID="ProfilePictureContainer" runat="server" NavigateUrl="~/Pages/Profile.aspx">
+                    <div class="profile-picture">
+                        <img runat="server" src="~/img/profile.png"/>
+                            </div>
+                    <div class="profile-name">John Doe
+                        </div>
+                    </asp:HyperLink>
+                    </div>
+                
                 <div class="hero">
                     <asp:ContentPlaceHolder ID="mainContent" runat="server"></asp:ContentPlaceHolder>
                 </div>
