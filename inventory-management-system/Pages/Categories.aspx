@@ -23,8 +23,6 @@
              <asp:HyperLink ID="HyperLink4" CssClass="cards" runat="server">
                  <div class="link-card-header">Maticne ploce</div>
              </asp:HyperLink>
-
-            
         </div>
             </div>
    
