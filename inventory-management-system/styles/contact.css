@@ -1,8 +1,78 @@
-﻿.contact-container{
+﻿
+.contact-container {
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    width: 80%;
+    width: 100%;
     height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-subcontainer {
+    display: flex;
+    background-color: rgb(222,222,222);
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    width: 500px;
+    padding: 30px 20px;
+    border-radius: 10px;
+    flex-direction: column;
+    gap: 20px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.contact-header {
+    font-size: 40px;
+    font-family: sans-serif;
+}
+
+
+.contact-subcontainer input,
+.contact-subcontainer textarea,
+.form-input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    height: 50px;
+    font-family: sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+#mainContent_messageTextArea {
+    height: 200px;
+}
+
+
+#mainContent_submitButton {
+    width: 60%;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+    #mainContent_submitButton:hover {
+        cursor: pointer;
+        border: 1px solid rgb(128, 128, 128);
+        background-color: #0056b3;
+    }
+
+
+.error-text {
+    color: red;
+    font-size: 13px;
+    text-align: center;
+}
+
+
+input.input-validation-error,
+textarea.input-validation-error {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
 }

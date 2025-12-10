@@ -42,6 +42,15 @@ namespace inventory_management_system.Pages
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regexName;
 
         /// <summary>
+        /// emailTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox emailTextBox;
+
+        /// <summary>
         /// reqEmail control.
         /// </summary>
         /// <remarks>
@@ -60,13 +69,13 @@ namespace inventory_management_system.Pages
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regexEmail;
 
         /// <summary>
-        /// txtSubject control.
+        /// messageHeaderTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSubject;
+        protected global::System.Web.UI.WebControls.TextBox messageHeaderTextBox;
 
         /// <summary>
         /// reqSubject control.
@@ -78,13 +87,22 @@ namespace inventory_management_system.Pages
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqSubject;
 
         /// <summary>
-        /// txtMessage control.
+        /// RegularExpressionValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMessage;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+
+        /// <summary>
+        /// messageTextArea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox messageTextArea;
 
         /// <summary>
         /// reqMessage control.
@@ -96,12 +114,30 @@ namespace inventory_management_system.Pages
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqMessage;
 
         /// <summary>
-        /// btnSend control.
+        /// RegularExpressionValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSend;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
+
+        /// <summary>
+        /// submitButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button submitButton;
+
+        /// <summary>
+        /// sendMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sendMessage;
     }
 }
