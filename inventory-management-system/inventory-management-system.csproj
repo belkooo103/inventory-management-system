@@ -135,6 +135,7 @@
     <Content Include="Pages\Profile.aspx" />
     <Content Include="Pages\Suppliers.aspx" />
     <Content Include="styles\categoriesStyle.css" />
+    <Content Include="styles\contact.css" />
     <Content Include="styles\dashboradStyle.css" />
     <Content Include="styles\styles.css" />
     <Content Include="Web.config" />

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/styles.css" />
     <link rel="stylesheet" href="styles/dashboradStyle.css" />
     <link rel="stylesheet" href="styles/categoriesStyle.css" />
+    <link rel="stylesheet" href="styles/contact.css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

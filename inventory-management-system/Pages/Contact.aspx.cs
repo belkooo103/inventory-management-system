@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.Net.Mail;
+using System.Web.UI;
 
 namespace inventory_management_system.Pages
 {
@@ -9,7 +10,7 @@ namespace inventory_management_system.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ValidationSettings.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
         }
 
     }
