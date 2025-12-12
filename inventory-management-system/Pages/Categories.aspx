@@ -1,30 +1,55 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Categories.aspx.cs" Inherits="inventory_management_system.Pages.Categories" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
+﻿<%@ Page Title="Categories"
+    Language="C#"
+    MasterPageFile="~/Site1.Master"
+    AutoEventWireup="true"
+    CodeBehind="Categories.aspx.cs"
+    Inherits="inventory_management_system.Pages.Categories" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContent" runat="server">
-    <div class="categories-container">
-        <div class="categories-cards">
-         <div class="categories-header">
-             <input id="TextSearchCategory" type="text" placeholder="Pretrazite kategoriju:"/>
-             <asp:Button ID="ButtonAdd" runat="server" Text="Dodaj" />
-             <asp:Button ID="ButtonRemove" runat="server" Text="Obrisi" />
-         </div>
-        <div class="cards-container">
-            
-            <asp:HyperLink ID="HyperLink1" CssClass="cards" runat="server">
-                <div class="link-card-header">Graficke kartice</div>
-            </asp:HyperLink>
-            <asp:HyperLink ID="HyperLink2" CssClass="cards" runat="server">
-                  <div class="link-card-header">Stolice</div>
-            </asp:HyperLink>
-            <asp:HyperLink ID="HyperLink3" CssClass="cards" runat="server">
-                <div class="link-card-header">Mobilni uredjaji</div>
-            </asp:HyperLink>
-             <asp:HyperLink ID="HyperLink4" CssClass="cards" runat="server">
-                 <div class="link-card-header">Maticne ploce</div>
-             </asp:HyperLink>
+
+<div class="categories-container">
+    <div class="categories-cards">
+
+        <div class="categories-header">
+            <asp:TextBox ID="TextCategoryName"
+                         runat="server"
+                         CssClass="search-box"
+                         placeholder="Naziv kategorije" />
+
+            <asp:Button ID="ButtonAdd"
+                        runat="server"
+                        Text="Dodaj"
+                        CssClass="btn btn-add"
+                        OnClick="ButtonAdd_Click" />
         </div>
-            </div>
-   
+
+        <div class="cards-container">
+            <asp:Repeater ID="CategoriesRepeater"
+                          runat="server"
+                          OnItemCommand="CategoriesRepeater_ItemCommand">
+
+                <ItemTemplate>
+                    <a class="cards card-wrap"
+                       href='<%# ResolveUrl("~/Pages/Products.aspx?categoryId=" + Eval("id")) %>'>
+
+                        <div class="link-card-header">
+                            <%# Eval("name") %>
+                        </div>
+
+                        <asp:LinkButton ID="BtnDelete"
+                                        runat="server"
+                                        CssClass="btn-delete"
+                                        Text="Obriši"
+                                        CommandName="delete"
+                                        CommandArgument='<%# Eval("id") %>'
+                                        OnClientClick="event.stopPropagation(); return confirm('Obrisati ovu kategoriju?');" />
+                    </a>
+                </ItemTemplate>
+
+            </asp:Repeater>
+        </div>
+
     </div>
+</div>
+
 </asp:Content>

@@ -13,5 +13,16 @@ namespace inventory_management_system
         {
 
         }
+        protected void ButtonSearch_Click(object sender, EventArgs e)
+        {
+            string query = TextBoxSearch.Text.Trim();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                Response.Redirect(
+                    "~/Pages/SearchResults.aspx?q=" + Server.UrlEncode(query)
+                );
+            }
+        }
     }
 }

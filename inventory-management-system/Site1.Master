@@ -1,68 +1,114 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="inventory_management_system.Site1" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true"
+    CodeBehind="Site1.master.cs"
+    Inherits="inventory_management_system.Site1" %>
 
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
     <title>Popis inventara</title>
+
     <link rel="stylesheet" href="styles/styles.css" />
     <link rel="stylesheet" href="styles/dashboradStyle.css" />
     <link rel="stylesheet" href="styles/categoriesStyle.css" />
     <link rel="stylesheet" href="styles/contact.css" />
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+     <link rel="stylesheet" href="styles/products.css" />
+    <link rel="stylesheet" href="styles/suppliers.css" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server" />
 </head>
+
 <body>
-    <form id="form1" runat="server">
-        <div class="container">
-            <div class="side-container">
-                <div class="side-logo-container">
-                       <img runat="server" src="img/logo.png" />
-                       <div class="logo-name">Stock<span style="color: #1DB954;">Mate</span></div>
-                   </div>
-                   
-                <div class="side-items">
-                    <div class="item">
-                        <img runat="server" src="img/dashboard.png" />
-                        <asp:HyperLink ID="HyperLinkDashboard" runat="server" NavigateUrl="~/Pages/Dashboard.aspx">Dashboard</asp:HyperLink>
-                    </div>
-                    <div class="item">
-                        <img runat="server" src="img/category.png" />
-                        <asp:HyperLink ID="HyperLinkCategories" runat="server" NavigateUrl="~/Pages/Categories.aspx">Categories</asp:HyperLink>
-                    </div>
-                    <div class="item">
-                        <img runat="server" src="img/suppliers.png"/>
-                        <asp:HyperLink ID="HyperLinkSuppliers" runat="server" NavigateUrl="~/Pages/Suppliers.aspx">Suppliers</asp:HyperLink>
-                    </div>
-                    <div class="item">
-                        <img runat="server" src="img/orders.png" />
-                       <asp:HyperLink ID="HyperLinkOrders" runat="server" NavigateUrl="~/Pages/Orders.aspx">Orders</asp:HyperLink>
-                    </div>
-                    <div class="item">
-                        <img runat="server" src="img/contact.png">
-                       <asp:HyperLink ID="HyperLinkContact" runat="server" NavigateUrl="~/Pages/Contact.aspx">Contact</asp:HyperLink>
-                    </div>
-                   
-                </div>
+<form id="form1" runat="server">
+
+<div class="container">
+
+    
+    <div class="side-container">
+
+        <asp:HyperLink runat="server" CSSclass="side-logo-container" NavigateUrl="~/Pages/Dashboard.aspx">
+            <img runat="server" src="img/logo.png" />
+            <div class="logo-name">
+                Stock<span style="color:#1DB954;">Mate</span>
             </div>
-            <div class="hero-container">
-                <div class="header-container">
-                    <asp:TextBox ID="TextBoxSearch" runat="server" Placeholder="Search..."></asp:TextBox>
-                    <asp:Button ID="ButtonSearch" runat="server" Text="Search" />
-               <asp:HyperLink ID="ProfilePictureContainer" runat="server" NavigateUrl="~/Pages/Profile.aspx">
-                    <div class="profile-picture">
-                        <img runat="server" src="~/img/profile.png"/>
-                            </div>
-                    <div class="profile-name">John Doe
-                        </div>
-                    </asp:HyperLink>
-                    </div>
-                
-                <div class="hero">
-                    <asp:ContentPlaceHolder ID="mainContent" runat="server"></asp:ContentPlaceHolder>
-                </div>
+        </asp:HyperLink>
+
+        <div class="side-items">
+
+            <div class="item">
+                <img runat="server" src="img/dashboard.png" />
+                <asp:HyperLink ID="HyperLinkDashboard"
+                               runat="server"
+                               NavigateUrl="~/Pages/Dashboard.aspx">
+                    Dashboard
+                </asp:HyperLink>
             </div>
+
+            <div class="item">
+                <img runat="server" src="img/category.png" />
+                <asp:HyperLink ID="HyperLinkCategories"
+                               runat="server"
+                               NavigateUrl="~/Pages/Categories.aspx">
+                    Categories
+                </asp:HyperLink>
+            </div>
+
+            
+            <div class="item">
+                <img runat="server" src="img/products.png" />
+                <asp:HyperLink ID="HyperLinkProducts"
+                               runat="server"
+                               NavigateUrl="~/Pages/Products.aspx">
+                    Products
+                </asp:HyperLink>
+            </div>
+
+            <div class="item">
+                <img runat="server" src="img/suppliers.png" />
+                <asp:HyperLink ID="HyperLinkSuppliers"
+                               runat="server"
+                               NavigateUrl="~/Pages/Suppliers.aspx">
+                    Suppliers
+                </asp:HyperLink>
+            </div>
+
+
+            <div class="item">
+                <img runat="server" src="img/contact.png" />
+                <asp:HyperLink ID="HyperLinkContact"
+                               runat="server"
+                               NavigateUrl="~/Pages/Contact.aspx">
+                    Contact
+                </asp:HyperLink>
+            </div>
+
         </div>
-    </form>
+    </div>
+
+
+    <div class="hero-container">
+
+        <div class="header-container">
+            <asp:TextBox ID="TextBoxSearch"
+                         runat="server"
+                         Placeholder="Search..."
+                        />
+
+            <asp:Button ID="ButtonSearch"
+                        runat="server"
+                        Text="Search"
+                 OnClick="ButtonSearch_Click"/>
+
+  
+        </div>
+
+        <div class="hero">
+            <asp:ContentPlaceHolder ID="mainContent" runat="server" />
+        </div>
+
+    </div>
+
+</div>
+
+</form>
 </body>
 </html>
