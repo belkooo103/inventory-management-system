@@ -1,16 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Web;
+using System.Globalization;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace inventory_management_system.Pages
 {
-    public partial class Products : System.Web.UI.Page
+    public partial class Products : Page
     {
         private readonly string cs =
             ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
@@ -21,6 +18,7 @@ namespace inventory_management_system.Pages
             {
                 LoadCategories();
                 LoadProducts();
+                BtnDeleteSelected.Enabled = false;
             }
         }
 
@@ -28,7 +26,7 @@ namespace inventory_management_system.Pages
         {
             using (MySqlConnection con = new MySqlConnection(cs))
             {
-                string query = "SELECT id, name FROM categories WHERE is_deleted = 0";
+                string query = "SELECT id, name FROM categories WHERE is_deleted = 0 ORDER BY created_at DESC";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
@@ -81,33 +79,108 @@ namespace inventory_management_system.Pages
                     }
                 }
             }
+
+            // nakon rebind-a nema selekcije
+            ProductsGrid.SelectedIndex = -1;
+            BtnDeleteSelected.Enabled = false;
         }
 
         protected void BtnAddProduct_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection con = new MySqlConnection(cs))
+            LblMsg.Text = "";
+
+            var name = TxtName.Text.Trim();
+            var sku = TxtSku.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(sku))
             {
-                string query = @"
-                    INSERT INTO products
-                    (name, sku, price, quantity, category_id)
-                    VALUES
-                    (@name, @sku, @price, @qty, @cat)";
-
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@name", TxtName.Text.Trim());
-                    cmd.Parameters.AddWithValue("@sku", TxtSku.Text.Trim());
-                    cmd.Parameters.AddWithValue("@price", decimal.Parse(TxtPrice.Text));
-                    cmd.Parameters.AddWithValue("@qty", int.Parse(TxtQuantity.Text));
-                    cmd.Parameters.AddWithValue("@cat", DdlCategories.SelectedValue);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
+                LblMsg.Text = "Unesi naziv i SKU.";
+                return;
             }
 
-            TxtName.Text = TxtSku.Text = TxtPrice.Text = TxtQuantity.Text = "";
-            LoadProducts(TxtSearch.Text.Trim());
+            if (!decimal.TryParse(TxtPrice.Text.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal price) &&
+                !decimal.TryParse(TxtPrice.Text.Trim(), NumberStyles.Any, CultureInfo.CurrentCulture, out price))
+            {
+                LblMsg.Text = "Cijena nije ispravna.";
+                return;
+            }
+
+            if (!int.TryParse(TxtQuantity.Text.Trim(), out int qty))
+            {
+                LblMsg.Text = "Količina nije ispravna.";
+                return;
+            }
+
+            var catId = DdlCategories.SelectedValue;
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(cs))
+                {
+                    con.Open();
+
+                    // Restore ako postoji obrisan sa istim SKU
+                    string restoreQuery = @"
+                        UPDATE products
+                        SET is_deleted = 0,
+                            name = @name,
+                            price = @price,
+                            quantity = @qty,
+                            category_id = @cat
+                        WHERE sku = @sku AND is_deleted = 1";
+
+                    using (MySqlCommand restoreCmd = new MySqlCommand(restoreQuery, con))
+                    {
+                        restoreCmd.Parameters.AddWithValue("@name", name);
+                        restoreCmd.Parameters.AddWithValue("@sku", sku);
+                        restoreCmd.Parameters.AddWithValue("@price", price);
+                        restoreCmd.Parameters.AddWithValue("@qty", qty);
+                        restoreCmd.Parameters.AddWithValue("@cat", catId);
+
+                        int restored = restoreCmd.ExecuteNonQuery();
+                        if (restored > 0)
+                        {
+                            ClearInputs();
+                            LblMsg.Text = "Vraćen obrisan proizvod (restore).";
+                            LoadProducts(TxtSearch.Text.Trim());
+                            return;
+                        }
+                    }
+
+                    // Insert nova stavka
+                    string insertQuery = @"
+                        INSERT INTO products (name, sku, price, quantity, category_id, is_deleted)
+                        VALUES (@name, @sku, @price, @qty, @cat, 0)";
+
+                    using (MySqlCommand cmd = new MySqlCommand(insertQuery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@name", name);
+                        cmd.Parameters.AddWithValue("@sku", sku);
+                        cmd.Parameters.AddWithValue("@price", price);
+                        cmd.Parameters.AddWithValue("@qty", qty);
+                        cmd.Parameters.AddWithValue("@cat", catId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                ClearInputs();
+                LblMsg.Text = "Dodano.";
+                LoadProducts(TxtSearch.Text.Trim());
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062)
+                {
+                    LblMsg.Text = "Već postoji proizvod sa tim SKU.";
+                    return;
+                }
+
+                LblMsg.Text = "MySQL greška: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                LblMsg.Text = "Greška: " + ex.Message;
+            }
         }
 
         protected void TxtSearch_TextChanged(object sender, EventArgs e)
@@ -115,13 +188,34 @@ namespace inventory_management_system.Pages
             LoadProducts(TxtSearch.Text.Trim());
         }
 
-        protected void ProductsGrid_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
+        protected void ProductsGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (e.CommandName == "delete")
+            // Omogući brisanje tek kad je nešto odabrano
+            BtnDeleteSelected.Enabled = (ProductsGrid.SelectedIndex >= 0);
+        }
+
+        protected void BtnDeleteSelected_Click(object sender, EventArgs e)
+        {
+            LblMsg.Text = "";
+
+            if (ProductsGrid.SelectedIndex < 0)
             {
-                int id = Convert.ToInt32(e.CommandArgument);
+                LblMsg.Text = "Odaberi proizvod u tabeli.";
+                BtnDeleteSelected.Enabled = false;
+                return;
+            }
+
+            int id = Convert.ToInt32(ProductsGrid.DataKeys[ProductsGrid.SelectedIndex].Value);
+
+            try
+            {
                 SoftDeleteProduct(id);
+                LblMsg.Text = "Obrisano.";
                 LoadProducts(TxtSearch.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                LblMsg.Text = "Greška pri brisanju: " + ex.Message;
             }
         }
 
@@ -139,5 +233,14 @@ namespace inventory_management_system.Pages
                 }
             }
         }
+
+        private void ClearInputs()
+        {
+            TxtName.Text = "";
+            TxtSku.Text = "";
+            TxtPrice.Text = "";
+            TxtQuantity.Text = "";
+        }
+
     }
 }

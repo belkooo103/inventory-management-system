@@ -1,16 +1,12 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace inventory_management_system.Pages
 {
-    public partial class Categories : System.Web.UI.Page
+    public partial class Categories : Page
     {
         private readonly string cs =
             ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
@@ -44,28 +40,68 @@ namespace inventory_management_system.Pages
 
         protected void ButtonAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TextCategoryName.Text))
-                return;
+            LblMsg.Text = "";
 
-            using (MySqlConnection con = new MySqlConnection(cs))
+            var name = TextCategoryName.Text.Trim();
+            if (string.IsNullOrWhiteSpace(name))
             {
-                string query = "INSERT INTO categories (name) VALUES (@name)";
-
-                using (MySqlCommand cmd = new MySqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@name", TextCategoryName.Text.Trim());
-                    con.Open();
-
-                    try { cmd.ExecuteNonQuery(); }
-                    catch (MySqlException ex)
-                    {
-                        if (ex.Number != 1062) throw;
-                    }
-                }
+                LblMsg.Text = "Unesi naziv.";
+                return;
             }
 
-            TextCategoryName.Text = "";
-            LoadCategories();
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(cs))
+                {
+                    con.Open();
+
+                    // 1) Restore ako postoji obrisana kategorija
+                    string restoreQuery = @"
+                        UPDATE categories
+                        SET is_deleted = 0
+                        WHERE name = @name AND is_deleted = 1";
+
+                    using (MySqlCommand restoreCmd = new MySqlCommand(restoreQuery, con))
+                    {
+                        restoreCmd.Parameters.AddWithValue("@name", name);
+                        int restoredRows = restoreCmd.ExecuteNonQuery();
+
+                        if (restoredRows > 0)
+                        {
+                            TextCategoryName.Text = "";
+                            LblMsg.Text = "Vraćena obrisana kategorija.";
+                            LoadCategories();
+                            return;
+                        }
+                    }
+
+                    // 2) Insert nova kategorija
+                    string insertQuery = "INSERT INTO categories (name, is_deleted) VALUES (@name, 0)";
+                    using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, con))
+                    {
+                        insertCmd.Parameters.AddWithValue("@name", name);
+                        insertCmd.ExecuteNonQuery();
+                    }
+                }
+
+                TextCategoryName.Text = "";
+                LblMsg.Text = "Dodano.";
+                LoadCategories();
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062)
+                {
+                    LblMsg.Text = "Već postoji kategorija s tim imenom.";
+                    return;
+                }
+
+                LblMsg.Text = "MySQL greška: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                LblMsg.Text = "Greška: " + ex.Message;
+            }
         }
 
         protected void CategoriesRepeater_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
@@ -73,8 +109,17 @@ namespace inventory_management_system.Pages
             if (e.CommandName == "delete")
             {
                 int id = Convert.ToInt32(e.CommandArgument);
-                SoftDeleteCategory(id);
-                LoadCategories();
+
+                try
+                {
+                    SoftDeleteCategory(id);
+                    LblMsg.Text = "Obrisano.";
+                    LoadCategories();
+                }
+                catch (Exception ex)
+                {
+                    LblMsg.Text = "Greška pri brisanju: " + ex.Message;
+                }
             }
         }
 

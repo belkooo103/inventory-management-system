@@ -15,6 +15,15 @@ namespace inventory_management_system.Pages
     {
 
         /// <summary>
+        /// LblMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMsg;
+
+        /// <summary>
         /// TxtName control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace inventory_management_system.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnAddProduct;
+
+        /// <summary>
+        /// BtnDeleteSelected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDeleteSelected;
 
         /// <summary>
         /// TxtSearch control.

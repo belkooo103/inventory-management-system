@@ -20,21 +20,29 @@
                         runat="server"
                         Text="Dodaj"
                         CssClass="btn btn-add"
-                        OnClick="ButtonAdd_Click" />
+                        OnClick="ButtonAdd_Click"
+                        UseSubmitBehavior="true" />
+
+            <asp:Label ID="LblMsg"
+                       runat="server"
+                       CssClass="msg"
+                       EnableViewState="false" />
         </div>
 
         <div class="cards-container">
             <asp:Repeater ID="CategoriesRepeater"
                           runat="server"
                           OnItemCommand="CategoriesRepeater_ItemCommand">
-
                 <ItemTemplate>
-                    <a class="cards card-wrap"
-                       href='<%# ResolveUrl("~/Pages/Products.aspx?categoryId=" + Eval("id")) %>'>
+                    <div class="cards card-wrap">
 
-                        <div class="link-card-header">
-                            <%# Eval("name") %>
-                        </div>
+                        
+                        <a class="card-link"
+                           href='<%# ResolveUrl("~/Pages/Products.aspx?categoryId=" + Eval("id")) %>'>
+                            <div class="link-card-header">
+                                <%# Eval("name") %>
+                            </div>
+                        </a>
 
                         <asp:LinkButton ID="BtnDelete"
                                         runat="server"
@@ -42,10 +50,9 @@
                                         Text="Obriši"
                                         CommandName="delete"
                                         CommandArgument='<%# Eval("id") %>'
-                                        OnClientClick="event.stopPropagation(); return confirm('Obrisati ovu kategoriju?');" />
-                    </a>
+                                        OnClientClick="return confirm('Obrisati ovu kategoriju?');" />
+                    </div>
                 </ItemTemplate>
-
             </asp:Repeater>
         </div>
 

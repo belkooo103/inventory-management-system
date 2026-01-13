@@ -13,6 +13,7 @@
         : "Svi proizvodi" %>
 </h2>
 
+<asp:Label ID="LblMsg" runat="server" CssClass="msg" EnableViewState="false" />
 
 <div class="add-product-panel">
 
@@ -40,9 +41,18 @@
                 runat="server"
                 Text="Dodaj proizvod"
                 CssClass="btn-add"
-                OnClick="BtnAddProduct_Click" />
-</div>
+                OnClick="BtnAddProduct_Click"
+                UseSubmitBehavior="true" />
 
+    <asp:Button ID="BtnDeleteSelected"
+                runat="server"
+                Text="Obriši odabrani"
+                CssClass="btn-delete-top"
+                OnClick="BtnDeleteSelected_Click"
+                UseSubmitBehavior="true"
+                OnClientClick="return confirm('Obrisati odabrani proizvod?');" />
+
+</div>
 
 <div class="products-toolbar">
     <asp:TextBox ID="TxtSearch"
@@ -53,14 +63,15 @@
                  OnTextChanged="TxtSearch_TextChanged" />
 </div>
 
-
 <div class="products-wrapper">
 
     <asp:GridView ID="ProductsGrid"
                   runat="server"
                   CssClass="grid"
                   AutoGenerateColumns="false"
-                  OnRowCommand="ProductsGrid_RowCommand">
+                  DataKeyNames="id"
+                  AutoGenerateSelectButton="true"
+                  OnSelectedIndexChanged="ProductsGrid_SelectedIndexChanged">
 
         <Columns>
             <asp:BoundField DataField="name" HeaderText="Naziv" />
@@ -68,18 +79,6 @@
             <asp:BoundField DataField="price" HeaderText="Cijena" />
             <asp:BoundField DataField="quantity" HeaderText="Količina" />
             <asp:BoundField DataField="category" HeaderText="Kategorija" />
-
-            <asp:TemplateField HeaderText="Akcije">
-                <ItemTemplate>
-                    <asp:LinkButton ID="BtnDelete"
-                                    runat="server"
-                                    Text="Obriši"
-                                    CssClass="btn-delete"
-                                    CommandName="delete"
-                                    CommandArgument='<%# Eval("id") %>'
-                                    OnClientClick="return confirm('Obrisati ovaj proizvod?');" />
-                </ItemTemplate>
-            </asp:TemplateField>
         </Columns>
 
     </asp:GridView>

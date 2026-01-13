@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContent" runat="server">
 
     
-    <h2 class="dashboard-title">Dashboard</h2>
+   
 
     
     <div class="dashboard-cards">

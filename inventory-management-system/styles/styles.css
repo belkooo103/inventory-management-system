@@ -1,4 +1,4 @@
-﻿/*---------------- MASTER PAGE CSS ---------------*/
+﻿
 *{
    
     margin: 0;
@@ -136,6 +136,7 @@ body {
 .hero{
     height: 850px;
     width: 100%;
+
 
 }
 #ProfilePictureContainer {

@@ -63,9 +63,9 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
                 ControlToValidate="messageTextArea"
                 Display="Dynamic"
-                ErrorMessage="Poruka sadrži nedozvoljene karaktere (molimo bez specijalnih karaktera/simbola)."
+                ErrorMessage="Poruka sadrži nedozvoljene karaktere (dozvoljeni su: () , . ! ?."
                 CssClass="error-text"
-                ValidationExpression="^^[a-zA-ZčćžšđČĆŽŠĐ\s]+$" />
+                ValidationExpression="^[a-zA-ZčćšđžČĆŠĐŽ0-9\s(),.?!]+$" />
             <asp:Button ID="submitButton" runat="server" Text="Pošalji" OnClick="submitButton_Click"/>
             <p id="sendMessage" runat="server" style="color:green;"></p>
         </div>
